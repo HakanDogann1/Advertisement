@@ -27,12 +27,11 @@ namespace Advertisement.Business.Services
         private readonly IValidator<ListDto> _listDtoValidator;
         private readonly IUow _uow;
 
-        public Service(IMapper mapper, IValidator<CreateDto> createDtoValidator, IValidator<UpdateDto> updateDtoValidator, IValidator<ListDto> listDtoValidator, IUow uow)
+        public Service(IMapper mapper, IValidator<CreateDto> createDtoValidator, IValidator<UpdateDto> updateDtoValidator, IUow uow)
         {
             _mapper = mapper;
             _createDtoValidator = createDtoValidator;
             _updateDtoValidator = updateDtoValidator;
-            _listDtoValidator = listDtoValidator;
             _uow = uow;
         }
 
@@ -43,6 +42,7 @@ namespace Advertisement.Business.Services
             {
                 var createdDto = _mapper.Map<T>(createDto);
                 await _uow.GetRepository<T>().CreateAsync(createdDto);
+                await _uow.SaveChangesAsync();
                 return new Response<CreateDto>(ResponseType.Success, createDto);
             }
             return new Response<CreateDto>(createDto, result.ConvertToCustomValidationError());

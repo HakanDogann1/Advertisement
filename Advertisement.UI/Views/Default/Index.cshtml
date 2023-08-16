@@ -1,0 +1,55 @@
+﻿@model List<Advertisement.Dto.DTOs.ProvidedServiceDtos.ProvidedServiceListDto>
+@{
+    ViewData["Title"] = "Index";
+
+    Layout = "~/Views/Shared/_WonderLayout.cshtml";
+
+    string script1 = " ";
+    string script2 = " ";
+    int count = 1;
+   
+}
+
+<header class="masthead text-center text-white">
+    <div class="masthead-content">
+        <div class="container px-5">
+            <h1 class="masthead-heading mb-0">Yazılım Hizmetleri</h1>
+            <h2 class="masthead-subheading mb-0">Masaüstü , Web ve Mobil Uygulamalar</h2>
+            <a class="btn btn-primary btn-xl rounded-pill mt-5" href="#scroll">Daha Fazla</a>
+        </div>
+    </div>
+    <div class="bg-circle-1 bg-circle"></div>
+    <div class="bg-circle-2 bg-circle"></div>
+    <div class="bg-circle-3 bg-circle"></div>
+    <div class="bg-circle-4 bg-circle"></div>
+</header>
+    @foreach (var item in Model)
+    {
+        if (count % 2 == 1)
+        {
+            script1 = " ";
+            script2 = " ";
+        }
+        else
+        {
+            script1 = "order-lg-2";
+            script2 = "order-lg-1";
+        }
+            <section id="scroll">
+            <div class="container px-5">
+                <div class="row gx-5 align-items-center">
+                    <div class="col-lg-6 @script1">
+                        <div class="p-5"><img class="img-fluid rounded-circle" src="@item.ImagePath" alt="..." /></div>
+                    </div>
+                    <div class="col-lg-6 @script2">
+                        <div class="p-5">
+                            <h2 class="display-4">@item.Title</h2>
+                            <p>@item.Description</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </section>
+            count++;
+    }
+
